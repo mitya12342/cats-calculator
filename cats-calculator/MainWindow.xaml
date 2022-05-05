@@ -5,21 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cats_calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    
+        Title="Calculator" Height="324" Width="228" ResizeMode="CanMinimize">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFEDF4FC"/>
+            <GradientStop Color="#FFD9E4F1" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
     <Grid>
-
-
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Open"/>
-                    <MenuItem Header="_Close"/>
-                    <MenuItem Header="_Save"/>
+            <Menu DockPanel.Dock="Top" Background="White" Foreground="Black" >
+                <MenuItem Header="_View">
+                    <MenuItem Header="S_tandard" IsChecked="True" InputGestureText="Alt+1"/>
+                    <MenuItem Header="_Scientific" IsEnabled="False" InputGestureText="Alt+2"/>
+                    <MenuItem Header="_Programmer" IsEnabled="False" InputGestureText="Alt+3"/>
+                    <MenuItem Header="St_atistics" IsEnabled="False" InputGestureText="Alt+4"/>
+                    <Separator/>
+                    <MenuItem Header="Histor_y" IsEnabled="False" InputGestureText="Ctrl+H"/>
+                    <MenuItem Header="D_igit grouping" IsEnabled="False"/>
+                    <Separator/>
+                    <MenuItem Header="_Basic" IsChecked="True" InputGestureText="Ctrl+F4"/>
+                    <MenuItem Header="_Unit conversion" IsEnabled="False" InputGestureText="Ctrl+U"/>
+                    <MenuItem Header="_Date calculation" IsEnabled="False" InputGestureText="Ctrl+E"/>
+                    <MenuItem Header="_Worksheets">
+                        <MenuItem Header="_Mortgage" IsEnabled="False"/>
+                        <MenuItem Header="_Vehicle lease" IsEnabled="False"/>
+                        <MenuItem Header="_Fuel economy (mpg)" IsEnabled="False"/>
+                        <MenuItem Header="F_uel economy (L/100 km)" IsEnabled="False"/>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Copy" InputGestureText="Ctrl+C"/>
+                    <MenuItem Header="_Paste" InputGestureText="Ctrl+V"/>
+                    <Separator/>
+                    <MenuItem Header="_History" >
+                        <MenuItem Header="Copy h_istory" IsEnabled="False"/>
+                        <MenuItem Header="_Edit" InputGestureText="F2" IsEnabled="False"/>
+                        <MenuItem Header="Ca_ncel edit" InputGestureText="Esc" IsEnabled="False"/>
+                        <MenuItem Header="C_lear" InputGestureText="Ctrl+Shift+D" IsEnabled="False"/>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_View help" InputGestureText="F1"/>
+                    <Separator/>
+                    <MenuItem Header="_About Calculator"/>
                 </MenuItem>
 
-
             </Menu>
+            
             <StackPanel></StackPanel>
         </DockPanel>
 
