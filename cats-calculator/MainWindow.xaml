@@ -17,11 +17,7 @@
                     <MenuItem Header="_Close"/>
                     <MenuItem Header="_Save"/>
                 </MenuItem>
-                <MenuItem x:Name="MenuItem_Root" Header="Root">
-                    <MenuItem x:Name="MenuItem_Item1" IsCheckable="True" Header="item1" />
-                    <MenuItem x:Name="MenuItem_Item2" IsCheckable="True" Header="item2"/>
-                    <MenuItem x:Name="MenuItem_Item3" IsCheckable="True" Header="item3"/>
-                </MenuItem>
+
 
             </Menu>
             <StackPanel></StackPanel>
