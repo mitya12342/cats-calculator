@@ -13,9 +13,26 @@
         </LinearGradientBrush>
     </Window.Background>
 
-    <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top" Background="White" Foreground="Black" >
+    <Grid ShowGridLines="True" Margin="12,0,12,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="5" Margin="-12,0,-12,0">
+            <Menu DockPanel.Dock="Top" Background="White" Foreground="Black">
                 <MenuItem Header="_View">
                     <MenuItem Header="S_tandard" IsChecked="True" InputGestureText="Alt+1"/>
                     <MenuItem Header="_Scientific" IsEnabled="False" InputGestureText="Alt+2"/>
