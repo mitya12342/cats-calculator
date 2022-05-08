@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cats_calculator"
         mc:Ignorable="d"
-        Title="Calculator" Height="324" Width="228" ResizeMode="CanMinimize">
+        Title="Calculator" Height="324" Width="228" ResizeMode="CanMinimize" TextInput="WinTextInput">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFEDF4FC"/>
@@ -141,7 +141,7 @@
                     <MenuItem Header="St_atistics" IsEnabled="False" InputGestureText="Alt+4"/>
                     <Separator/>
                     <MenuItem Header="Histor_y" IsEnabled="False" InputGestureText="Ctrl+H"/>
-                    <MenuItem Header="D_igit grouping" IsEnabled="False"/>
+                    <MenuItem x:Name="DigitGroupingCheckbox" Header="D_igit grouping" IsCheckable="True" Unchecked="ToggleGrouping" Checked="ToggleGrouping"/>
                     <Separator/>
                     <MenuItem Header="_Basic" IsChecked="True" InputGestureText="Ctrl+F4"/>
                     <MenuItem Header="_Unit conversion" IsEnabled="False" InputGestureText="Ctrl+U"/>
@@ -180,7 +180,7 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <Label Grid.Column="0" Content="1234" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Bottom" Grid.ColumnSpan="5" Margin="0,0,0,3" FontFamily="Consolas" FontSize="22"/>
+        <Label x:Name="Display" Grid.Column="0" Content="0" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Bottom" Grid.ColumnSpan="5" Margin="0,0,0,3" FontFamily="Consolas" FontSize="22"/>
         <Button x:Name="MC_Button" Style="{DynamicResource MemoryButtonStyle}" Content="MC" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="2" VerticalAlignment="Stretch" UseLayoutRounding="False"/>
         <Button x:Name="MR_Button" Style="{DynamicResource MemoryButtonStyle}" Content="MR" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="2" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="1"/>
         <Button x:Name="MS_Button" Style="{DynamicResource MemoryButtonStyle}" Content="MS" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="2" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2"/>
@@ -191,23 +191,23 @@
         <Button x:Name="C_Button" Style="{DynamicResource FunctionButtonStyle}" Content="C" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="3" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2"/>
         <Button x:Name="PlusMinus_Button" Style="{DynamicResource FunctionButtonStyle}" Content="±" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="3" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="3"/>
         <Button x:Name="Sqrt_Button" Style="{DynamicResource FunctionButtonStyle}" Content="√" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="3" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="4"/>
-        <Button x:Name="Digit_Button7" Style="{DynamicResource DigitButtonStyle}" Content="7" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" FontSize="16"/>
-        <Button x:Name="Digit_Button8" Style="{DynamicResource DigitButtonStyle}" Content="8" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="1" FontSize="16"/>
-        <Button x:Name="Digit_Button9" Style="{DynamicResource DigitButtonStyle}" Content="9" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" FontSize="16"/>
+        <Button x:Name="Digit_Button7" Style="{DynamicResource DigitButtonStyle}" Content="7" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" FontSize="16" Click="DigitBtnClick"/>
+        <Button x:Name="Digit_Button8" Style="{DynamicResource DigitButtonStyle}" Content="8" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="1" FontSize="16" Click="DigitBtnClick"/>
+        <Button x:Name="Digit_Button9" Style="{DynamicResource DigitButtonStyle}" Content="9" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" FontSize="16" Click="DigitBtnClick"/>
         <Button x:Name="Division_Button" Style="{DynamicResource FunctionButtonStyle}" Content="/" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="3"/>
         <Button x:Name="Percent_Button" Style="{DynamicResource FunctionButtonStyle}" Content="%" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="4" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="4"/>
-        <Button x:Name="Digit_Button4" Style="{DynamicResource DigitButtonStyle}" Content="4" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" FontSize="16"/>
-        <Button x:Name="Digit_Button5" Style="{DynamicResource DigitButtonStyle}" Content="5" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="1" FontSize="16"/>
-        <Button x:Name="Digit_Button6" Style="{DynamicResource DigitButtonStyle}" Content="6" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" FontSize="16"/>
+        <Button x:Name="Digit_Button4" Style="{DynamicResource DigitButtonStyle}" Content="4" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" FontSize="16" Click="DigitBtnClick"/>
+        <Button x:Name="Digit_Button5" Style="{DynamicResource DigitButtonStyle}" Content="5" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="1" FontSize="16" Click="DigitBtnClick"/>
+        <Button x:Name="Digit_Button6" Style="{DynamicResource DigitButtonStyle}" Content="6" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" FontSize="16" Click="DigitBtnClick"/>
         <Button x:Name="Multiplication_Button" Style="{DynamicResource FunctionButtonStyle}" Content="*" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="3" FontSize="16"/>
         <Button x:Name="OneByX_Button" Style="{DynamicResource FunctionButtonStyle}" Content="1/x" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="5" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="4"/>
-        <Button x:Name="Digit_Button1" Style="{DynamicResource DigitButtonStyle}" Content="1" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" FontSize="16"/>
-        <Button x:Name="Digit_Button2" Style="{DynamicResource DigitButtonStyle}" Content="2" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="1" FontSize="16"/>
-        <Button x:Name="Digit_Button3" Style="{DynamicResource DigitButtonStyle}" Content="3" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" FontSize="16"/>
+        <Button x:Name="Digit_Button1" Style="{DynamicResource DigitButtonStyle}" Content="1" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" FontSize="16" Click="DigitBtnClick"/>
+        <Button x:Name="Digit_Button2" Style="{DynamicResource DigitButtonStyle}" Content="2" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="1" FontSize="16" Click="DigitBtnClick"/>
+        <Button x:Name="Digit_Button3" Style="{DynamicResource DigitButtonStyle}" Content="3" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" FontSize="16" Click="DigitBtnClick"/>
         <Button x:Name="Minus_Button" Style="{DynamicResource FunctionButtonStyle}" Content="-" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="3" FontSize="16"/>
         <Button x:Name="Equals_Button" Style="{DynamicResource FunctionButtonStyle}" Content="=" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="6" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="4" Grid.RowSpan="2" FontSize="24" FontWeight="Bold" ClipToBounds="True" Padding="1,-4,1,1"/>
-        <Button x:Name="Digit_Button0" Style="{DynamicResource DigitButtonStyle}" Content="0" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="7" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16"/>
-        <Button x:Name="Comma_Button" Style="{DynamicResource DigitButtonStyle}" Content="," HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="7" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" Grid.ColumnSpan="1" FontSize="16"/>
+        <Button x:Name="Digit_Button0" Style="{DynamicResource DigitButtonStyle}" Content="0" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="7" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" Click="DigitBtnClick"/>
+        <Button x:Name="Comma_Button" Style="{DynamicResource DigitButtonStyle}" Content="," HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="7" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="2" Grid.ColumnSpan="1" FontSize="16" Click="DigitBtnClick"/>
         <Button x:Name="Plus_Button" Style="{DynamicResource FunctionButtonStyle}" Content="+" HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Row="7" VerticalAlignment="Stretch" UseLayoutRounding="False" Grid.Column="3" FontSize="16"/>
     </Grid>
 </Window>
