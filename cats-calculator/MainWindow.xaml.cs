@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace cats_calculator
 {
@@ -22,105 +12,164 @@ namespace cats_calculator
 
     public partial class MainWindow : Window
     {
-        string num_text = "0";
-        double shown_number = 0;
-        string decimal_separator = CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator;
+        Calculator Calculator = new Calculator();
+
         public MainWindow()
         {
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             InitializeComponent();
         }
 
-        private void UpdateShownNumber()
+        public void UpdateDisplay()
         {
-            shown_number = Double.Parse(num_text);
-            if (num_text == "0" || shown_number == 0.0)
-            {
-                Display.Content = "0";
-            }
-            else if (shown_number > 1e-15 && shown_number < 1e15)
-            {
-                string display_format = DigitGroupingCheckbox.IsChecked ? "#,0.################" : "0.################";
-                Display.Content = shown_number.ToString(display_format);
-                if (num_text.EndsWith(decimal_separator))
-                {
-                    Display.Content += decimal_separator;
-                } else if (num_text.EndsWith("0") && num_text.Contains(decimal_separator))
-                {
-                    Display.Content = ((int)shown_number).ToString(display_format);
-                    Display.Content += decimal_separator;
-                    Display.Content += num_text.Split(decimal_separator.ToCharArray()[0])[1];
-                }
-            } else
-            {
-                Display.Content = shown_number.ToString("E15");
-            }
-
-            if (Display.Content.ToString().Length > 20)
-            {
-                Display.FontSize = 14;
-            } else if (Display.Content.ToString().Length > 12)
-            {
-                Display.FontSize = 18;
-            } else
-            {
-                Display.FontSize = 22;
-            }
+            Display.Content = Calculator.InnerMainDisplay;
+            DisplayHistory.Content = Calculator.InnerHistoryDisplay;
+            Display_M.Content = Calculator.InnerMemoryIndicator;
         }
 
-        private void PutChar(Char inputChar)
+        private void Button_Number(object sender, RoutedEventArgs e)
         {
-            if (Char.IsDigit(inputChar))
-            {
-                if (!(inputChar == 0 && num_text.StartsWith("0") && !num_text.Contains(decimal_separator)))
-                {
-                    if (num_text == "0")
-                    {
-                        num_text = inputChar.ToString();
-                    }
-                    else
-                    {
-                        num_text += inputChar;
-                    }
-                    UpdateShownNumber();
-                }
-
-            }
-            else if ((inputChar == ',' || inputChar == '.') && !num_text.Contains(decimal_separator))
-            {
-                num_text += decimal_separator;
-                UpdateShownNumber();
-            }
-            else if (inputChar == '\b' || inputChar == '←')
-            {
-                if (num_text.Length == 1)
-                {
-                    num_text = "0";
-                }
-                else
-                {
-                    num_text = num_text.Remove(num_text.Length - 1, 1);
-                }
-                UpdateShownNumber();
-            }
+            Calculator.NumberPress((sender as Button).Content.ToString());
+            UpdateDisplay();
         }
 
-        private void DigitBtnClick(object sender, RoutedEventArgs e)
+        private void Button_Delete_All(object sender, RoutedEventArgs e)
         {
-            PutChar(((Button)sender).Content.ToString()[0]);
+            Calculator.DeleteAllPress();
+            UpdateDisplay();
+
+        }
+
+        private void Button_Delete_Once(object sender, RoutedEventArgs e)
+        {
+            Calculator.DeleteOncePress();
+            UpdateDisplay();
+
+        }
+
+        private void Button_Point(object sender, RoutedEventArgs e)
+        {
+            Calculator.ButtonPointPress();
+            UpdateDisplay();
+
+        }
+
+        private void Button_Click_Op(object sender, RoutedEventArgs e)
+        {
+            Calculator.ClickOp((sender as Button).Content.ToString());
+            UpdateDisplay();
+
+        }
+
+        private void Neg_Or_Pos_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator.NegOrPosClick();
+            UpdateDisplay();
+
+        }
+
+        private void Button_Click_Res(object sender, RoutedEventArgs e)
+        {
+            Calculator.ClickRes();
+            UpdateDisplay();
+
+
+        }
+
+        private void Button_Delete_Add(object sender, RoutedEventArgs e)
+        {
+            Calculator.ClickDeleteAdd();
+            UpdateDisplay();
+
+        }
+
+        private void Button_MR_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator.MRClick();
+            UpdateDisplay();
+
+        }
+
+        private void Button_MS_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator.MSClick();
+            UpdateDisplay();
+
+        }
+
+        private void Button_MC_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator.MCClick();
+            UpdateDisplay();
+
+        }
+
+        private void Button_M_Plus_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator.MPlusClick();
+            UpdateDisplay();
+
+        }
+
+        private void Button_M_Minus_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator.MMinusClick();
+            UpdateDisplay();
+
+        }
+
+        private void ButtonSpecialOp(object sender, RoutedEventArgs e)
+        {
+            Calculator.SpecialOpClick((sender as Button).Content.ToString());
+            UpdateDisplay();
+
         }
 
         private void WinTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (e.Text.Length > 0)
+            if (e.Text.Length == 1)
             {
-                PutChar(e.Text[0]);
+                Char inputChar = e.Text[0];
+                if (Char.IsDigit(inputChar))
+                {
+                    Calculator.NumberPress(inputChar.ToString());
+
+                }
+                else if ((inputChar == ',' || inputChar == '.'))
+                {
+                    Calculator.ButtonPointPress();
+                }
+                else if (inputChar == '\b' || inputChar == '←')
+                {
+                    Calculator.DeleteOncePress();
+                }
+                else if (inputChar == '=' || inputChar == '\n')
+                {
+                    Calculator.ClickRes();
+                }
+                else if (inputChar == '+' || inputChar == '-' || inputChar == '*' || inputChar == '/')
+                {
+                    Calculator.ClickOp(inputChar.ToString());
+                }
+                UpdateDisplay();
+
             }
+            e.Handled = true;
         }
 
-        private void ToggleGrouping(object sender, RoutedEventArgs e)
+        private void Keydown(object sender, KeyEventArgs e)
         {
-            UpdateShownNumber();
+            if (e.Key == Key.Tab || e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Enter)
+            {
+                Calculator.ClickRes();
+                UpdateDisplay();
+                e.Handled = true;
+
+            }
         }
     }
 }
